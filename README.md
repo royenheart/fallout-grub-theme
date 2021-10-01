@@ -1,3 +1,5 @@
+[English](./README.md) | [中文](./README_zh.md)
+
 ## Fallout GRUB theme
 
 Supported languages: Chinese (simplified), English, French, German, Italian, Norwegian, Portuguese, Russian, Spanish, Ukrainian

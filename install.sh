@@ -7,7 +7,7 @@ LANG='English'
 cd $(mktemp -d)
 
 # Pre-authorise sudo
-sudo echo
+sudo echo 2>>./error
 
 # Select language, optional
 declare -A LANGS=(
@@ -81,10 +81,18 @@ if [[ -e /etc/os-release ]]; then
 fi
 
 echo 'Fetching theme archive'
-wget -O ${THEME}.zip https://github.com/shvchk/${THEME}/archive/master.zip
+wget -O ${THEME}.zip https://github.com/shvchk/${THEME}/archive/master.zip 2>>./error
 
 echo 'Unpacking theme'
-unzip ${THEME}.zip
+unzip ${THEME}.zip 2>>./error
+
+# Checking for errors when some software packages aren't installed, thus may make installation fail
+if [ -n "$(cat ./error)" ]; then
+	cat ./error
+	echo "Some errors occured, please check for the errors listed"
+	rm -f ./error
+	exit -1
+fi
 
 if [[ "$LANG" != "English" ]]; then
     echo "Changing language to ${LANG}"
